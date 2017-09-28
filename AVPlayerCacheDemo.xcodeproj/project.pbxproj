@@ -15,6 +15,14 @@
 		D1CF358F1F7C9804009B1782 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF358E1F7C9804009B1782 /* main.m */; };
 		D1CF35991F7C980C009B1782 /* AVPlayerCacheDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35981F7C980C009B1782 /* AVPlayerCacheDemoTests.m */; };
 		D1CF35A41F7C980D009B1782 /* AVPlayerCacheDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35A31F7C980D009B1782 /* AVPlayerCacheDemoUITests.m */; };
+		D1CF35E31F7CA26F009B1782 /* NSString+FileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35E01F7CA26F009B1782 /* NSString+FileHandle.m */; };
+		D1CF35E41F7CA26F009B1782 /* NSString+UniqueId.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35E21F7CA26F009B1782 /* NSString+UniqueId.m */; };
+		D1CF35E81F7CA35A009B1782 /* CrFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35E71F7CA35A009B1782 /* CrFileHandle.m */; };
+		D1CF35EC1F7CA52E009B1782 /* CrResourceData.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35EB1F7CA52E009B1782 /* CrResourceData.m */; };
+		D1CF35EF1F7CA54D009B1782 /* CrResourceDataUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35EE1F7CA54D009B1782 /* CrResourceDataUnit.m */; };
+		D1CF35F21F7CA699009B1782 /* CrResourceDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35F11F7CA699009B1782 /* CrResourceDownloader.m */; };
+		D1CF35F51F7CA6B1009B1782 /* CrResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35F41F7CA6B1009B1782 /* CrResourceLoader.m */; };
+		D1CF35FB1F7CC1EC009B1782 /* CrPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CF35FA1F7CC1EC009B1782 /* CrPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +59,23 @@
 		D1CF359F1F7C980C009B1782 /* AVPlayerCacheDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVPlayerCacheDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CF35A31F7C980D009B1782 /* AVPlayerCacheDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVPlayerCacheDemoUITests.m; sourceTree = "<group>"; };
 		D1CF35A51F7C980E009B1782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D1CF35B21F7C9902009B1782 /* AVPlayerCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVPlayerCache.h; sourceTree = "<group>"; };
+		D1CF35DF1F7CA26F009B1782 /* NSString+FileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FileHandle.h"; sourceTree = "<group>"; };
+		D1CF35E01F7CA26F009B1782 /* NSString+FileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileHandle.m"; sourceTree = "<group>"; };
+		D1CF35E11F7CA26F009B1782 /* NSString+UniqueId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UniqueId.h"; sourceTree = "<group>"; };
+		D1CF35E21F7CA26F009B1782 /* NSString+UniqueId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UniqueId.m"; sourceTree = "<group>"; };
+		D1CF35E61F7CA35A009B1782 /* CrFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrFileHandle.h; sourceTree = "<group>"; };
+		D1CF35E71F7CA35A009B1782 /* CrFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrFileHandle.m; sourceTree = "<group>"; };
+		D1CF35E91F7CA37D009B1782 /* AVPlayerCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVPlayerCache.h; sourceTree = "<group>"; };
+		D1CF35EA1F7CA52E009B1782 /* CrResourceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrResourceData.h; sourceTree = "<group>"; };
+		D1CF35EB1F7CA52E009B1782 /* CrResourceData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrResourceData.m; sourceTree = "<group>"; };
+		D1CF35ED1F7CA54D009B1782 /* CrResourceDataUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrResourceDataUnit.h; sourceTree = "<group>"; };
+		D1CF35EE1F7CA54D009B1782 /* CrResourceDataUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrResourceDataUnit.m; sourceTree = "<group>"; };
+		D1CF35F01F7CA699009B1782 /* CrResourceDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrResourceDownloader.h; sourceTree = "<group>"; };
+		D1CF35F11F7CA699009B1782 /* CrResourceDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrResourceDownloader.m; sourceTree = "<group>"; };
+		D1CF35F31F7CA6B1009B1782 /* CrResourceLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrResourceLoader.h; sourceTree = "<group>"; };
+		D1CF35F41F7CA6B1009B1782 /* CrResourceLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrResourceLoader.m; sourceTree = "<group>"; };
+		D1CF35F91F7CC1EC009B1782 /* CrPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrPlayer.h; sourceTree = "<group>"; };
+		D1CF35FA1F7CC1EC009B1782 /* CrPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +127,8 @@
 		D1CF357E1F7C97F5009B1782 /* AVPlayerCacheDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D1CF35F91F7CC1EC009B1782 /* CrPlayer.h */,
+				D1CF35FA1F7CC1EC009B1782 /* CrPlayer.m */,
 				D1CF357F1F7C97F5009B1782 /* AppDelegate.h */,
 				D1CF35801F7C97F6009B1782 /* AppDelegate.m */,
 				D1CF35821F7C97F6009B1782 /* ViewController.h */,
@@ -137,9 +163,47 @@
 		D1CF35B11F7C9890009B1782 /* AVPlayerCache */ = {
 			isa = PBXGroup;
 			children = (
-				D1CF35B21F7C9902009B1782 /* AVPlayerCache.h */,
+				D1CF35E51F7CA35A009B1782 /* FileHandle */,
+				D1CF35DE1F7CA26F009B1782 /* NSString */,
+				D1CF35D31F7CA21C009B1782 /* Model */,
+				D1CF35E91F7CA37D009B1782 /* AVPlayerCache.h */,
+				D1CF35F01F7CA699009B1782 /* CrResourceDownloader.h */,
+				D1CF35F11F7CA699009B1782 /* CrResourceDownloader.m */,
+				D1CF35F31F7CA6B1009B1782 /* CrResourceLoader.h */,
+				D1CF35F41F7CA6B1009B1782 /* CrResourceLoader.m */,
 			);
 			path = AVPlayerCache;
+			sourceTree = "<group>";
+		};
+		D1CF35D31F7CA21C009B1782 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1CF35EA1F7CA52E009B1782 /* CrResourceData.h */,
+				D1CF35EB1F7CA52E009B1782 /* CrResourceData.m */,
+				D1CF35ED1F7CA54D009B1782 /* CrResourceDataUnit.h */,
+				D1CF35EE1F7CA54D009B1782 /* CrResourceDataUnit.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D1CF35DE1F7CA26F009B1782 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				D1CF35DF1F7CA26F009B1782 /* NSString+FileHandle.h */,
+				D1CF35E01F7CA26F009B1782 /* NSString+FileHandle.m */,
+				D1CF35E11F7CA26F009B1782 /* NSString+UniqueId.h */,
+				D1CF35E21F7CA26F009B1782 /* NSString+UniqueId.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		D1CF35E51F7CA35A009B1782 /* FileHandle */ = {
+			isa = PBXGroup;
+			children = (
+				D1CF35E61F7CA35A009B1782 /* CrFileHandle.h */,
+				D1CF35E71F7CA35A009B1782 /* CrFileHandle.m */,
+			);
+			path = FileHandle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,9 +339,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1CF35EC1F7CA52E009B1782 /* CrResourceData.m in Sources */,
+				D1CF35F51F7CA6B1009B1782 /* CrResourceLoader.m in Sources */,
+				D1CF35E41F7CA26F009B1782 /* NSString+UniqueId.m in Sources */,
+				D1CF35FB1F7CC1EC009B1782 /* CrPlayer.m in Sources */,
 				D1CF35841F7C97F7009B1782 /* ViewController.m in Sources */,
+				D1CF35E81F7CA35A009B1782 /* CrFileHandle.m in Sources */,
 				D1CF358F1F7C9804009B1782 /* main.m in Sources */,
 				D1CF35811F7C97F6009B1782 /* AppDelegate.m in Sources */,
+				D1CF35EF1F7CA54D009B1782 /* CrResourceDataUnit.m in Sources */,
+				D1CF35E31F7CA26F009B1782 /* NSString+FileHandle.m in Sources */,
+				D1CF35F21F7CA699009B1782 /* CrResourceDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

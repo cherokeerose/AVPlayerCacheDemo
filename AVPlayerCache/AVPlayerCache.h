@@ -9,5 +9,12 @@
 #ifndef AVPlayerCache_h
 #define AVPlayerCache_h
 
+#import "NSString+FileHandle.h"
+#import "NSString+UniqueId.h"
+#import "CrFileHandle.h"
+#import "CrResourceDataUnit.h"
+#import "CrResourceData.h"
+#import "CrResourceDownloader.h"
+#import "CrResourceLoader.h"
 
 #endif /* AVPlayerCache_h */
