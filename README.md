@@ -1,7 +1,7 @@
 # AVPlayerCacheDemo
 
 AVPlayer缓存原理
-1、    当播放器需要预先缓存一些数据的时候，不让播放器直接向服务器发起请求，而是向我们自己写的某个类（resourceLoader）发起缓存请求。
+1、    当播放器需要预先缓存一些数据的时候，不让播放器直接向服务器发起请求，而是向我们自己写的某个类（resourceLoader）发起缓存请求。\n
 2、    resourceLoader根据播放器的缓存请求的请求内容，向服务器发起请求。
 3、    服务器返回resourceLoader所需的数据。
 4、    resourceLoader把服务器返回的数据写进本地的缓存文件中，同时将数据回填给请求。
