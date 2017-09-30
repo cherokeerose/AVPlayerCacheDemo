@@ -1,6 +1,6 @@
 # AVPlayerCacheDemo
 
-AVPlayer缓存原理
+## AVPlayer缓存原理
 
 1、    当播放器需要预先缓存一些数据的时候，不让播放器直接向服务器发起请求，而是向我们自己写的某个类（resourceLoader）发起缓存请求。
 
@@ -15,27 +15,24 @@ AVPlayer缓存原理
 6、    下次播放器再播放歌曲的时候，先判断下本地有木有这个名字的文件，有则播放本地文件，木有则向resourceLoader要数据
 
 
-CocoaPods导入：
+## CocoaPods导入：
 
-$ pod install AVPlayerCache
+>`$ pod install 'AVPlayerCache'`
 
 
-使用：
 
+## 使用：
+```obj-c
 NSURLComponents *components = [[NSURLComponents alloc] initWithURL:[NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
-
 self.resourceLoader.scheme = components.scheme;
-
 components.scheme = @"stream";
 
 AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:components.URL options:nil];
-
 [urlAsset.resourceLoader setDelegate:self.resourceLoader queue:dispatch_queue_create("ResourceLoaderQueue", DISPATCH_QUEUE_SERIAL)];
-
 playerItem = [AVPlayerItem playerItemWithAsset:urlAsset];
+```
 
-
-缓冲说明
+## 缓冲说明
 
 可在resourceLoader中设置cachesFolder，自动将缓冲完成的文件拷贝到沙盒中的Cache下的该目录。
 
