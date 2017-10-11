@@ -69,13 +69,10 @@
     }
     NSUInteger offset = loadingRequest.dataRequest.requestedOffset;
     NSUInteger length = loadingRequest.dataRequest.requestedLength;
-    NSUInteger receivedOffset = self.receiveData.length;
-    NSUInteger begin = MAX(receivedOffset, offset);
-    NSUInteger len = (begin==offset) ? length : (length-(receivedOffset-offset));
-    
     NSURLComponents *components = [[NSURLComponents alloc] initWithURL:loadingRequest.request.URL resolvingAgainstBaseURL:NO];
     components.scheme = self.scheme;
-    self.resourceDownloader = [[CrResourceDownloader alloc] initWithUrl:components.URL offset:begin length:len delegate:self];
+    
+    self.resourceDownloader = [[CrResourceDownloader alloc] initWithUrl:components.URL offset:offset length:length delegate:self];
     [self.resourceDownloader start];
 }
 

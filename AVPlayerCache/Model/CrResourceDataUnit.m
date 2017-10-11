@@ -31,7 +31,7 @@
 }
 
 - (void)dealloc {
-    //[CrFileHandle removeTempFile:self.tmpfile];
+    [CrFileHandle removeTempFile:self.tmpfile];
 }
 
 #pragma mark - op
