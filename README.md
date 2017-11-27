@@ -17,7 +17,7 @@
 
 ## CocoaPods导入：
 
->`$ pod install 'AVPlayerCache'`
+>`$ pod 'AVPlayerCache'`
 
 
 
