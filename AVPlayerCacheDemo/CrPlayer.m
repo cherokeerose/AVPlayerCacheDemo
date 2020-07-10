@@ -155,8 +155,8 @@
         self.cacheDuration = CMTimeGetSeconds(timeRange.start) + CMTimeGetSeconds(timeRange.duration); //缓冲总长度
         if (self.cacheDuration/self.totalDuration == 1) {
             NSLog(@"cache finish");
-            NSString *filename = [NSString fileNameFromURL:self.url];
-            [CrFileHandle copyTempFile:self.resourceLoader.tmpfile toCachesFolder:@"MV" withName:filename];
+//            NSString *filename = [NSString fileNameFromURL:self.url];
+//            [CrFileHandle copyTempFile:self.resourceLoader.tmpfile toCachesFolder:@"MV" withName:filename];
         }
     } else if ([keyPath isEqualToString:@"playbackBufferEmpty"] && [object isKindOfClass:[AVPlayerItem class]]) {
         NSLog(@"playbackBufferEmpty");

@@ -11,12 +11,13 @@
 
 @interface CrResourceData()
 
-@property (nonatomic, copy  ) NSString      *tmpfile;
-@property (nonatomic, strong) NSMutableArray<CrResourceDataUnit *> *dataRangeArray;
+@property (nonatomic, copy  ) NSString                              *tmpfile;
+@property (nonatomic, strong) NSMutableArray<CrResourceDataUnit *>  *dataRangeArray;
 
 @end
 
 @implementation CrResourceData
+
 - (void)dealloc {
     [CrFileHandle removeTempFile:self.tmpfile];
 }
@@ -30,7 +31,7 @@
             return;
         }
     }
-    CrResourceDataUnit *resource = [[CrResourceDataUnit alloc] initWithOffset:offset];
+    CrResourceDataUnit *resource = [[CrResourceDataUnit alloc] initWithOffset:offset diskCache:self.diskCache];
     [resource appendData:data];
     [self.dataRangeArray addObject:resource];
     [self sortDataArray];
@@ -84,27 +85,39 @@
     return NO;
 }
 
+//判断是否缓冲完成，以单一数据且长度恰好等于文件长度判断
 - (BOOL)completeCached {
-    if (self.dataRangeArray.count == 1 && self.length == self.fileLength) {
+    if (self.dataRangeArray.count == 1 && [self getCurrentLength] == self.fileLength) {
         //CrDebugLog("Cache Success");
+        CrResourceDataUnit *resource = self.dataRangeArray.firstObject;
+        
+        //将数据拷贝一份
         NSString *uinqueId = [NSString uniqueId];
         self.tmpfile = [NSString stringWithFormat:@"%@.tmp", uinqueId];
         [CrFileHandle createTempFile:self.tmpfile];
-        
-        CrResourceDataUnit *resource = self.dataRangeArray.firstObject;
-        [CrFileHandle writeTempFile:self.tmpfile data:[resource readData]];
+        [CrFileHandle writeData:[resource readData] toTempFile:self.tmpfile];
         return YES;
+    } else {
+        return NO;
     }
-    return NO;
+}
+
+- (NSUInteger)getCurrentLength {
+    NSUInteger datalength = 0;
+    for (CrResourceDataUnit *resource in self.dataRangeArray) {
+        datalength = datalength + resource.length;
+    }
+    return datalength;
 }
 
 #pragma mark - 排序合并已有数据
+//按offset排序，确保所有数据可以按序合并
 - (void)sortDataArray {
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"offset" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
-    [self.dataRangeArray sortUsingDescriptors:sortDescriptors];
+    NSSortDescriptor *sortDes = [NSSortDescriptor sortDescriptorWithKey:@"offset" ascending:YES];
+    [self.dataRangeArray sortUsingDescriptors:@[sortDes]];
 }
 
+//将连续数据合并成单一数据
 - (void)mergeDataArray {
     NSMutableArray<CrResourceDataUnit *> *dataArray = [[NSMutableArray<CrResourceDataUnit *> alloc] init];
     for (int i=0; i<self.dataRangeArray.count; i++) {
@@ -128,14 +141,6 @@
         _dataRangeArray = [[NSMutableArray<CrResourceDataUnit *> alloc] init];
     }
     return _dataRangeArray;
-}
-
-- (NSUInteger)length {
-    NSUInteger datalength = 0;
-    for (CrResourceDataUnit *resource in self.dataRangeArray) {
-        datalength = datalength + resource.length;
-    }
-    return datalength;
 }
 
 @end

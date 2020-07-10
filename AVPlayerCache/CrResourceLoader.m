@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableArray<AVAssetResourceLoadingRequest *>   *requestList;
 @property (nonatomic, strong) CrResourceDownloader                              *resourceDownloader;
 @property (nonatomic, strong) CrResourceData                                    *receiveData;
+@property (nonatomic, copy  ) NSString                                          *tmpfile;
 
 @property (nonatomic, strong) NSString                                          *requestUrl;
 @property (nonatomic, assign) NSUInteger                                        *receivedLength;
@@ -23,56 +24,77 @@
 
 @implementation CrResourceLoader
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.maxCacheSize = 1024*1024*100;
+    }
+    return self;
+}
+
 - (void)dealloc {
     if (self.resourceDownloader != nil) {
         [self.resourceDownloader cancel];
-        
     }
 }
 
 #pragma mark - AVAssetResourceLoaderDelegate
 - (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest *)loadingRequest {
-    [self addLoadingRequest:loadingRequest];
+    [self addLoadingRequest:loadingRequest];        //将loadingRequest添加到请求队列
     return YES;
 }
-
+                
 - (void)resourceLoader:(AVAssetResourceLoader *)resourceLoader didCancelLoadingRequest:(AVAssetResourceLoadingRequest *)loadingRequest {
-    [self removeLoadingRequest:loadingRequest];
+    [self removeLoadingRequest:loadingRequest];     //播放器取消了loadingRequest，从队列移除
 }
 
 #pragma mark - add request
+//添加请求
 - (void)addLoadingRequest:(AVAssetResourceLoadingRequest *)request {
     [self.requestList addObject:request];
     @synchronized (self) {
+        //新下载则先清空原有下载缓存
+        NSURLComponents *components = [[NSURLComponents alloc] initWithURL:request.request.URL resolvingAgainstBaseURL:NO];
+        components.scheme = self.scheme;
+        NSString *url = components.URL.absoluteString;
+        if (![self.requestUrl isEqualToString:url]) {  //新资源下载，清除已下载数据
+            [self.resourceDownloader cancel];
+            self.resourceDownloader = nil;
+            self.tmpfile = nil;
+            self.receiveData = nil;
+            self.receivedLength = 0;
+            self.requestUrl = url;
+        }
+        
+        //判断已下载情况
         NSInteger requestedOffset = request.dataRequest.requestedOffset;
         NSInteger requestedLength = request.dataRequest.requestedLength;
         NSInteger requestingOffset = self.resourceDownloader.requestOffset;
         NSInteger requestingLength = self.resourceDownloader.requestLength;
-        BOOL downloaded = [self.receiveData allDataOffset:requestedOffset length:requestedLength];  //是否已经下载
-        BOOL requested = (requestedOffset >= requestingOffset) && ((requestedOffset+requestedLength) <= (requestingOffset+requestingLength));   //是否正在下载
+        BOOL downloaded = [self.receiveData allDataOffset:requestedOffset length:requestedLength];  //数据是否已经完全下载
+        BOOL requested = (requestedOffset >= requestingOffset) && ((requestedOffset+requestedLength) <= (requestingOffset+requestingLength));   //数据是否全部正在下载
         
         if (downloaded || requested) {
-            [self processRequestList];
+            [self processRequestList];                      //数据已经全部下载或正在下载，直接回填数据
         } else {
-            [self newTaskWithLoadingRequest:request];
+            [self newTaskWithLoadingRequest:request];       //没有数据或者数据不完整，需要向网络下载
         }
     }
 }
 
+//生成一个新网络下载请求
 - (void)newTaskWithLoadingRequest:(AVAssetResourceLoadingRequest *)loadingRequest {
-    if (self.requestUrl && ![self.requestUrl isEqualToString:loadingRequest.request.URL.absoluteString]) {  //新文件下载
-        self.receiveData = nil;
-        self.receivedLength = 0;
-        self.requestUrl = loadingRequest.request.URL.absoluteString;
-    }
+    //取消正在下载请求
     if (self.resourceDownloader != nil) {
         [self.resourceDownloader cancel];
+        self.resourceDownloader = nil;
     }
     NSUInteger offset = loadingRequest.dataRequest.requestedOffset;
     NSUInteger length = loadingRequest.dataRequest.requestedLength;
     NSURLComponents *components = [[NSURLComponents alloc] initWithURL:loadingRequest.request.URL resolvingAgainstBaseURL:NO];
     components.scheme = self.scheme;
     
+    //发起网络数据下载请求
     self.resourceDownloader = [[CrResourceDownloader alloc] initWithUrl:components.URL offset:offset length:length delegate:self];
     [self.resourceDownloader start];
 }
@@ -82,6 +104,7 @@
 }
 
 #pragma mark - respond the request data
+//判断请求是否已经回填完成，完成的从队列移除，未完成的回填。
 - (void)processRequestList {
     NSMutableArray *finishRequestList = [NSMutableArray array];
     for (int i=0; i<self.requestList.count; i++) {
@@ -102,6 +125,7 @@
     request.contentInformationRequest.byteRangeAccessSupported = YES;
     request.contentInformationRequest.contentLength = self.receiveData.fileLength;
     
+    //填充数据
     NSUInteger needLength = request.dataRequest.requestedLength - (request.dataRequest.currentOffset - request.dataRequest.requestedOffset);
     if ([self.receiveData hasDataOffset:request.dataRequest.currentOffset length:needLength]) {
         NSData *data = [self.receiveData getDataOffset:request.dataRequest.currentOffset length:needLength];
@@ -123,6 +147,9 @@
     self.receiveData.mineType = response.MIMEType;
     self.receiveData.fileLength = fileLength;
     self.receiveData.fileName = [NSString fileNameFromURL:response.URL.absoluteString];
+    if (fileLength > 1024*1024*100) {
+        self.receiveData.diskCache = YES;
+    }
 }
 
 - (void)requestTaskDidReceiveData:(NSData *)data offset:(NSUInteger)offset {

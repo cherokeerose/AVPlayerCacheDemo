@@ -12,9 +12,10 @@
 
 @property (nonatomic, assign, readonly) NSUInteger  offset;     //offset为在整个数据流的偏移
 @property (nonatomic, assign, readonly) NSUInteger  length;     //length为当前数据的长度
-@property (nonatomic, copy,   readonly) NSString    *tmpfile;   //在tmp目录下保存的缓存文件名
+@property (nonatomic, assign, readonly) BOOL        diskCache;  //YES-硬盘缓冲，NO-内存缓冲，默认NO
 
 - (instancetype)initWithOffset:(NSUInteger)offset;
+- (instancetype)initWithOffset:(NSUInteger)offset diskCache:(BOOL)diskCache;
 
 - (void)appendData:(NSData *)data;
 - (NSData *)readData;

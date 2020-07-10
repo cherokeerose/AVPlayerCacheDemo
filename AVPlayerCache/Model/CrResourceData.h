@@ -10,11 +10,10 @@
 
 @interface CrResourceData : NSObject
 
-@property (atomic,    copy  )           NSString      *mineType;        //文件类型
-@property (nonatomic, copy  )           NSString      *fileName;        //网络文件名，含扩展名
-@property (atomic,    assign)           NSUInteger    fileLength;       //整个流的长度，对于已知长度的流有效
-@property (atomic,    assign, readonly) NSUInteger    length;           //当前已读流的长度，包含保存在文件中的字节和currentData的字节
-@property (nonatomic, assign, readonly) NSUInteger    currentOffset;    //当前内存中的流在整个流的起始位置
+@property (atomic,    copy  ) NSString      *mineType;      //文件类型
+@property (atomic,    assign) NSUInteger    fileLength;     //整个流的长度，对于已知长度的流有效
+@property (nonatomic, copy  ) NSString      *fileName;      //网络文件名
+@property (nonatomic, assign) BOOL          diskCache;      //YES-硬盘缓冲，NO-内存缓冲，默认NO
 
 @property (nonatomic, copy,   readonly) NSString      *tmpfile;         //在tmp目录下保存的缓存文件名
 

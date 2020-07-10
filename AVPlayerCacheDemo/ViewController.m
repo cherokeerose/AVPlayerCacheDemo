@@ -23,7 +23,7 @@
     self.player.playerLayer.frame = self.view.bounds;
     [self.view.layer addSublayer:self.player.playerLayer];
     
-    [self.player playMediaWithUrl:@"http://hc.yinyuetai.com/uploads/videos/common/8063015A8F40658E463185BAAD29142D.mp4"];
+    [self.player playMediaWithUrl:@"http://vfx.mtime.cn/Video/2019/03/19/mp4/190319212559089721.mp4"];
 }
 
 - (CrPlayer *)player {

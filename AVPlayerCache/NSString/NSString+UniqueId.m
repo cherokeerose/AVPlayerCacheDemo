@@ -11,16 +11,23 @@
 @implementation NSString (UniqueId)
 
 + (NSString *)uniqueId {
-    CFUUIDRef uuidRef =CFUUIDCreate(NULL);
-    CFStringRef uuidStringRef =CFUUIDCreateString(NULL, uuidRef);
+#if TARGET_IPHONE_SIMULATOR  //模拟器
+    NSDate *date = [NSDate new];
+    NSTimeInterval timeIntrval = date.timeIntervalSince1970;
+    NSString *string = [NSString stringWithFormat:@"%lf", timeIntrval];
+    return string;
+#elif TARGET_OS_IPHONE      //真机
+    CFUUIDRef uuidRef = CFUUIDCreate(NULL);
+    CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
     
     NSString *uniqueId = (__bridge NSString *)uuidStringRef;
-    NSString *uniqueString= [NSString stringWithFormat:@"%@", uniqueId];
+    NSString *uniqueString = [NSString stringWithFormat:@"%@", uniqueId];
     
     CFRelease(uuidRef);
     CFRelease(uuidStringRef);
     
     return uniqueString;
+#endif
 }
 
 @end
