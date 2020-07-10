@@ -26,6 +26,7 @@
 - (void)dealloc {
     if (self.resourceDownloader != nil) {
         [self.resourceDownloader cancel];
+        
     }
 }
 
