@@ -183,10 +183,10 @@
 		35D1705E24B8A59D00780F8A /* NSString */ = {
 			isa = PBXGroup;
 			children = (
-				35D1705F24B8A59D00780F8A /* NSString+UniqueId.m */,
-				35D1706024B8A59D00780F8A /* NSString+FileHandle.m */,
 				35D1706124B8A59D00780F8A /* NSString+UniqueId.h */,
+				35D1705F24B8A59D00780F8A /* NSString+UniqueId.m */,
 				35D1706224B8A59D00780F8A /* NSString+FileHandle.h */,
+				35D1706024B8A59D00780F8A /* NSString+FileHandle.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -527,7 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.litr.AVPlayerCacheDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liutr.AVPlayerCacheDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -543,7 +543,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.litr.AVPlayerCacheDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liutr.AVPlayerCacheDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
