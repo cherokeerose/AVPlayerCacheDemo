@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  SceneDelegate.h
 //  AVPlayerCacheDemo
 //
 //  Created by cherokee rose on 2020/7/10.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 
+@property (strong, nonatomic) UIWindow * window;
 
 @end
 
